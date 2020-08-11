@@ -1,8 +1,24 @@
 
 
 const Postagem = require("../models/Postagem");
+const Aluno = require("../models/Aluno");
+
 
 module.exports = {
+
+    async index(req, res){
+
+        const postagens = await Postagem.findAll({
+            include: {
+                association: "Aluno",
+                attributes: ["id", "nome", "ra"],
+            },
+            order: [["created_at", "DESC"]],
+        });
+
+        res.send(postagens);
+
+    },
 
     async store(req, res){
 
@@ -11,15 +27,28 @@ module.exports = {
 
         const { titulo, descricao, imagem, gists } = req.body;
 
-        let post = await Postagem.create({ 
-            titulo, 
-            descricao, 
-            imagem, 
-            gists, 
-            created_aluno_id 
-        });
+        try {
 
-        res.status(201).send(post);
+            const aluno = await Aluno.findByPk(created_aluno_id);
+
+            if (!aluno) {
+                res.status(404).send({erro: "Aluno não encontrado!"});
+            };
+
+            let postagem = await aluno.createPostagem({
+                titulo, 
+                descricao, 
+                imagem, 
+                gists, 
+            });
+    
+            res.status(201).send(postagem);
+
+        } catch (error) {
+            return res
+                .status(500)
+                .send({erro: "Não foi possivel criar postagem. tente novamente mais tarde!"});
+        }
 
     },
 

@@ -4,6 +4,7 @@ const Aluno = require("../models/Aluno");
 const { Op } = require("sequelize");
 
 module.exports = {
+    
     async listar(req, res) {
 
         const alunos = await Aluno.findAll();
