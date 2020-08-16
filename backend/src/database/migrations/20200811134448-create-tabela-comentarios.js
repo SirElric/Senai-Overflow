@@ -10,10 +10,10 @@ module.exports = {
         autoIncrement: true
       },
       descricao: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false,
       },
-      created_aluno_id: {
+      aluno_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
