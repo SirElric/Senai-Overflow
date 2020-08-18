@@ -29,7 +29,8 @@ export const ImageCropped = styled.div`
     border-right: 0px;
 
     > img {
-        width: 800px;
+        height: 100%;
+        max-height: 700px;
         margin-left: -110px;
     }
 
@@ -40,6 +41,7 @@ export const Form = styled.div `
     width: 100%;
     max-width: 400px;
     height: 80%;
+    max-height: 700px;
 
     border: 1px solid var(--white);
     border-radius: 0px 10px 10px 0px;
@@ -69,7 +71,7 @@ export const Titulo = styled.h1 `
 
 `
 
-export const Subtitulo = styled.h1 `
+export const Subtitulo = styled.h2 `
 
     margin-top: 10px;
 
@@ -84,7 +86,7 @@ export const Subtitulo = styled.h1 `
 
 `
 
-export const InputGroup = styled.h1 `
+export const InputGroup = styled.div `
 
     width: 100%;
     margin-top: 10px;
@@ -100,6 +102,16 @@ export const InputGroup = styled.h1 `
     > input {
         flex: 1;
         margin: 0px 10px;    
+    }
+
+    @media (max-width: 700px) {
+        flex-direction: column;
+        align-items: flex-start;
+
+        > input{
+            width: 100%;
+            margin: 0px 10px;
+        }
     }
 
 `
