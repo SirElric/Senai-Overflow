@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
 
     width: 100vw;
-    max-width: 800px;
+    max-width: 1220px;
     height: 100vh;
     margin: 0 auto;
 
@@ -13,14 +13,15 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
 
-`
+`;
 
 export const ImageCropped = styled.div`
 
     width: 100%;
     max-width: 580px;
     min-width: 100px;
-    height: 80%;
+    height: 90%;
+    min-height: 500px;
     max-height: 700px;
 
     overflow: hidden;
@@ -34,13 +35,13 @@ export const ImageCropped = styled.div`
         margin-left: -110px;
     }
 
-`
+`;
 
-export const Form = styled.div `
+export const Form = styled.form `
 
     width: 100%;
     max-width: 400px;
-    height: 80%;
+    height: 90%;
     max-height: 700px;
 
     border: 1px solid var(--white);
@@ -52,7 +53,7 @@ export const Form = styled.div `
     align-items: center;
     justify-content: center;
 
-`
+`;
 
 export const Titulo = styled.h1 `
 
@@ -63,28 +64,26 @@ export const Titulo = styled.h1 `
     text-shadow: 0px 0px 3px var(--white), 0px 0px 5px var(--white);
 
     cursor: default;
-    trasition: 0.8s;
+    transition: 0.8s;
 
     :hover {
         color: var(--primary);
     }
 
-`
+`;
 
-export const Subtitulo = styled.h2 `
+export const Subtitulo = styled(Titulo)`
+    margin-bottom: 20px;
 
-    margin-top: 10px;
-
-    color: var(--white);
     font-size: 20px;
-
+    color: var(--white);
     text-shadow: none;
 
     :hover {
         color: var(--red);
     }
 
-`
+`;
 
 export const InputGroup = styled.div `
 
@@ -101,24 +100,24 @@ export const InputGroup = styled.div `
 
     > input {
         flex: 1;
-        margin: 0px 10px;    
+        margin-right: 10px;    
     }
 
     @media (max-width: 700px) {
         flex-direction: column;
         align-items: flex-start;
 
-        > input{
+        > input {
             width: 100%;
             margin: 0px 10px;
         }
     }
 
-`
+`;
 
 export const Button = styled.button `
     min-width: 200px;
     margin: 10px 10px 0px 0px;
 
     align-self: flex-end;
-`
+`;

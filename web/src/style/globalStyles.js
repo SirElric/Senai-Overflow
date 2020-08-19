@@ -27,7 +27,7 @@ export const GlobalStyles = createGlobalStyle`
         font-size: 16px;
         border: 1px solid var(--white);
         padding: 10px;
-        font-weight: bold ;
+        font-weight: bold;
         height: 30px;
 
         transition: background-color 0.2s;
@@ -36,6 +36,7 @@ export const GlobalStyles = createGlobalStyle`
     label {
         color: var(--white);
         letter-spacing: 2px;
+        
         font-size: 20px;
 
     }
@@ -66,4 +67,4 @@ export const GlobalStyles = createGlobalStyle`
 
     }
     
-`
+`; 
