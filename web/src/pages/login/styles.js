@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const Container = styled.div`
 
@@ -37,6 +37,15 @@ export const ImageCropped = styled.div`
 
 `;
 
+const fadeForm = keyframes `
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+`
+
 export const Form = styled.form `
 
     width: 100%;
@@ -48,6 +57,10 @@ export const Form = styled.form `
     border-radius: 0px 10px 10px 0px;
     border-left: 0px;
 
+    *{
+        animation: ${fadeForm} 2s;
+    }
+
     display: flex;
     flex-direction: column; 
     align-items: center;
@@ -58,10 +71,10 @@ export const Form = styled.form `
 export const Titulo = styled.h1 `
 
     color: var(--red);
-    font-size: 40px;
+    font-size: 30px;
     letter-spacing: 5px;
 
-    text-shadow: 0px 0px 3px var(--white), 0px 0px 5px var(--white);
+    /* text-shadow: 0px 0px 3px var(--white), 0px 0px 5px var(--white); */
 
     cursor: default;
     transition: 0.8s;
@@ -75,7 +88,7 @@ export const Titulo = styled.h1 `
 export const Subtitulo = styled(Titulo)`
     margin-bottom: 20px;
 
-    font-size: 20px;
+    font-size: 15px;
     color: var(--white);
     text-shadow: none;
 

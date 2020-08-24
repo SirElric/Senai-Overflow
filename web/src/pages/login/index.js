@@ -8,12 +8,17 @@ import {
     Subtitulo, 
     InputGroup,
     Button,
-} from "./style";
+} from "./styles";
 
-import foto from "../../assets/foto.jpg"
+import foto from "../../assets/foto.jpg";
 import { api } from '../../services/api';
+// import Alerts from "../../components/Alerts";
+import { useHistory } from 'react-router-dom';
+import { signIn } from '../../services/security';
 
 const FormLogin = (props) => {
+
+    const history = useHistory();
 
     const [alunoLogin, setAlunoLogin] = useState({
         email: "",
@@ -27,7 +32,11 @@ const FormLogin = (props) => {
             const retorno = await api.post("/sessao", alunoLogin);
 
             if (retorno.status === 201) {
-                window.alert("Logado com sucesso!");
+                // window.alert("Logado com sucesso!");
+
+                signIn(retorno.data);
+
+                return history.push("/home");
 
             }
 
@@ -48,6 +57,7 @@ const FormLogin = (props) => {
 
     return (
         <Form onSubmit={entrar}>
+                {/* <Alerts mensagem=""/> */}
                 <Titulo>SENAI OVERFLOW</Titulo>
                 <Subtitulo>Compartilhe suas duvidas</Subtitulo>
                 <InputGroup>

@@ -17,7 +17,7 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-family: Arial;
         background-color: var(--primary);
     }
 
@@ -50,13 +50,15 @@ export const GlobalStyles = createGlobalStyle`
     button {
         padding: 10px;
 
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-family: Arial;
         font-size: 18px;
         letter-spacing: 1px;
 
         color: var(--white);
         background-color: var(--primary);
         border: 1px solid var(--white);
+
+        cursor: pointer;
 
         transition: background-color 0.2s;
 
