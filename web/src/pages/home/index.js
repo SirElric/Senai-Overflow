@@ -1,19 +1,104 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { FiGithub, FiLogOut } from "react-icons/fi";
 import './styles.css';
 
 import fotoPerfil from "../../assets/foto_perfil.png"
 import imgPost from "../../assets/post-exemplo.jpg"
-import { signOut } from "../../services/security"
+import { signOut, getAluno } from "../../services/security"
 import { useHistory } from "react-router-dom";
+import { api } from "../../services/api";
+import Alerts from "../../components/Alerts"
+
+const CardPost = ({ post }) => {
+
+    const [mostrarComentarios, setMostrarComentarios] = useState(false);
+
+    const [comentarios, setComentarios] = useState([]);
+
+    const carregarComentarios = async () => {
+        try {
+            if(!mostrarComentarios){
+                const retorno = await api.get(`postagens/${post.id}/comentarios`);
+                setComentarios(retorno.data);
+            }
+            setMostrarComentarios(!mostrarComentarios);
+        } catch (error) {
+            
+        }
+    }
+
+    return (
+        <div className="card-post">
+            <header>
+                <img src={fotoPerfil} alt="Foto de Perfil"/>
+                <strong>{post.Aluno.nome}</strong>
+                <p> {post.createdAt}</p>
+                {post.gists && (<FiGithub className="icon" size={20}/>)}
+            </header>
+            <body>
+                <strong>{post.titulo}</strong>
+                <p>
+                   {post.descricao}
+                </p>
+                <img src={imgPost} alt="imagem Post"/>
+            </body>
+            <footer>
+                <h1 onClick={carregarComentarios}>Comentarios</h1>
+                {mostrarComentarios && (
+                    <>
+                        {comentarios.length === 0 && (<p>Seja o primeiro a comentar!</p>)}
+                        {comentarios.map((c) => (
+                            <section className="containerComentario">
+                                <header>
+                                    <img src={fotoPerfil} alt="Foto do Perfil"/>
+                                    <strong>{c.Aluno.nome}</strong>
+                                    <p> {c.created_at}</p>
+                                </header>
+                                <p>
+                                    {c.descricao}
+                                </p>
+                            </section>
+                        ))}
+                    </>
+                    )
+                }
+                
+            </footer>
+        </div>
+    );
+};
 
 function Home() {
 
     const history = useHistory();
 
+    const [mensagem, setMensagem] = useState("");
+    const [postagens, setPostagens] = useState([]);
+
+    useEffect(() => {
+       const carregarPostagem = async () => {
+           try {
+               const retorno = await api.get("/postagens");
+
+               setPostagens(retorno.data);
+           } catch (erro) {
+            if(erro.response){
+                return setMensagem(erro.response.data.erro);
+            }
+
+            setMensagem("Ops, algo deu errado, tente novamente.")
+            }
+       }
+
+       carregarPostagem();
+    },[]);
+
+    const alunoSessao = getAluno();
+
     return (
     <div className="container">
+        <Alerts mensagem={mensagem} setMensagem={setMensagem} tipo="erro"/>
         <header className="header">
             <div><h1>SENAI OVERFLOW</h1></div>
             <div><input type="search" placeholder="Pesquisar uma Duvida"/></div>
@@ -34,61 +119,18 @@ function Home() {
                 <img src={fotoPerfil} alt="Foto de Perfil"/>
                 <a href="#">Editar Foto</a>
                 <strong>Nome</strong>
-                <p>Aluno 1</p>
-                <strong>e-mail</strong>
-                <p>test.email@gmail.com</p>
+                <p>{alunoSessao.nome}</p>
                 <strong>Ra</strong>
-                <p>11235813</p>
+                <p>{alunoSessao.ra}</p>
             </section>
             <section className="feed">
-                <div className="card-post">
-                    <header>
-                        <img src={fotoPerfil} alt="Foto de Perfil"/>
-                        <strong>Aluno 2</strong>
-                        <p> em 25/05/2020 ás 12:48</p>
-                        <FiGithub className="icon" size={20}/>
-                    </header>
-                    <body>
-                        <strong>Como funciona o RGB?</strong>
-                        <p>
-                            Estou tentando colorir uma div, e me indicaram usar o rgb, mas eu não sei como funciona.
-                        </p>
-                        <img src={imgPost} alt="imagem Post"/>
-                    </body>
-                    <footer>
-                        <h1>Comentarios</h1>
-                        <section className="containerComentario">
-                            <header>
-                                <img src={fotoPerfil} alt="Foto do Perfil"/>
-                                <strong>Aluno 3</strong>
-                                <p> em 25/05/2020 ás 15:24</p>
-                            </header>
-                            <p>
-                                Um valor de cor RGB é especificado com: rgb (vermelho, verde, azul).<br/>
-                                Cada parâmetro (vermelho, verde e azul) define a intensidade da cor
-                                como um número inteiro entre 0 e 255.<br/>
-                                Por exemplo, rgb (0, 0, 255) é renderizado como azul, porque o parâmetro
-                                azul é definido com seu valor mais alto (255) e os outros são definidos como 0.
-                            </p>
-                        </section>
-                        <section className="containerComentario">
-                            <header>
-                                <img src={fotoPerfil} alt="Foto do Perfil"/>
-                                <strong>Aluno 1</strong>
-                                <p> em 25/05/2020 ás 16:14</p>
-                            </header>
-                            <p>
-                                Em HTML, uma cor pode ser especificada como um valor RGB, usando esta fórmula:<br/>
-                                rgb ( vermelho, verde , azul )<br/>
-                                Cada parâmetro (vermelho, verde e azul) define a intensidade da cor com um valor entre 0 e 255.
-                            </p>
-                        </section>
-                    </footer>
-                </div>
+                {postagens.map((post) => (
+                    <CardPost post={post} />
+                ))};
             </section>
         </div>
     </div>
     );
-    }
+}
 
 export default Home;

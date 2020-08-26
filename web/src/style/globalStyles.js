@@ -8,6 +8,8 @@ export const GlobalStyles = createGlobalStyle`
         --white: #d9d9d9;
         --gray: #7a7a7a;
         --red: #aa0000;
+        --alertErro: rgb(255,0,0,0.8);
+        --alertSucesso: rgb(0,255,0,0.8);
     }
 
     *{

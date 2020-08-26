@@ -22,7 +22,7 @@ module.exports = {
                 as: "Aluno",
                 attributes: ["id", "nome"],
             },
-            attributes: ["id", "descricao"],
+            attributes: ["id", "descricao", "created_at"],
 
         });
 

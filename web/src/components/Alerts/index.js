@@ -1,18 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
-// import { Container } from './styles';
+import { Alert } from "./styles.js";
 
 function Alerts(props) {
 
-    const {mensagem} = props;
+    const {mensagem, tipo, setMensagem} = props;
 
-    return (
-        <Alerts>
-            <h1>
-                {mensagem}
-            </h1>
-        </Alerts>
-    );
+    useEffect(() => {
+
+    })
+
+    return mensagem ? (
+        <Alert tipo={tipo}>
+            <h1>{mensagem}</h1>
+            <span onClick={() => {
+                setMensagem(undefined);
+            }}>&times;</span>
+        </Alert>
+    ) : null;
 }
 
 export default Alerts;

@@ -5,20 +5,30 @@ import Login from "./pages/login";
 import Home from "./pages/home";
 import { isSignedIn } from './services/security';
 
-const PrivateRoute = ({children, ...rest}) =>{
-    return (
-        <Route 
-            {...rest} 
-            render={({location}) => isSignedIn() ? 
-                (children) : (
-                    <Redirect to={
-                        {pathname: "/", state: { from: location},}
-                    }/>
-                )
-            }
+const PrivateRoute = ({ children, location, ...rest }) => {
+    return isSignedIn() ? (
+        <Route {...rest}> {children} </Route>
+    ):(
+        <Redirect 
+        to={{pathname: "/", state: {from: location},}}
         />
     );
 };
+    
+// const PrivateRoute = ({children, ...rest}) =>{
+//     return (
+//         <Route 
+//             {...rest} 
+//             render={({location}) => isSignedIn() ? 
+//                 (children) : (
+//                     <Redirect to={
+//                         {pathname: "/", state: { from: location},}
+//                     }/>
+//                 )
+//             }
+//         />
+//     );
+// };
 
 function Routes() {
   return (

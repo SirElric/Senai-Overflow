@@ -12,7 +12,7 @@ import {
 
 import foto from "../../assets/foto.jpg";
 import { api } from '../../services/api';
-// import Alerts from "../../components/Alerts";
+import Alerts from "../../components/Alerts";
 import { useHistory } from 'react-router-dom';
 import { signIn } from '../../services/security';
 
@@ -42,10 +42,10 @@ const FormLogin = (props) => {
 
         } catch (erro) {
             if(erro.response){
-                window.alert(erro.response.data.erro);
+                return props.setMensagem(erro.response.data.erro);
             }
 
-            window.alert("Ops, algo deu errado, tente novamente.")
+            props.setMensagem("Ops, algo deu errado, tente novamente.")
         }
         
     }; 
@@ -57,7 +57,6 @@ const FormLogin = (props) => {
 
     return (
         <Form onSubmit={entrar}>
-                {/* <Alerts mensagem=""/> */}
                 <Titulo>SENAI OVERFLOW</Titulo>
                 <Subtitulo>Compartilhe suas duvidas</Subtitulo>
                 <InputGroup>
@@ -116,10 +115,10 @@ const FormRegistrar = (props) => {
 
         } catch (erro) {
             if(erro.response){
-                window.alert(erro.response.data.erro);
+                return props.setMensagem(erro.response.data.erro);
             }
 
-            window.alert("Ops, algo deu errado, tente novamente.")
+            props.setMensagem("Ops, algo deu errado, tente novamente.")
         }
         
     }; 
@@ -192,13 +191,19 @@ const FormRegistrar = (props) => {
 const Login = () => {
 
     const [mostrarForm, setMostrarForm] = useState("login");
+    const [mensagem, setMensagem] = useState("");
     
     return (
         <Container>
+            <Alerts mensagem={mensagem} setMensagem={setMensagem} tipo="erro"/>
             <ImageCropped>
                 <img src={foto} alt="Imagem Capa"/>
             </ImageCropped>
-            {mostrarForm === "login" ? (<FormLogin mostrarForm={setMostrarForm}/>) : (<FormRegistrar mostrarForm={setMostrarForm}/>)}
+            {mostrarForm === "login" ? (
+            <FormLogin setMensagem={setMensagem} mostrarForm={setMostrarForm}/>
+            ) : (
+            <FormRegistrar setMensagem={setMensagem} mostrarForm={setMostrarForm}/>
+            )}
         </Container>
     );
 };
