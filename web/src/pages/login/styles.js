@@ -107,6 +107,7 @@ export const InputGroup = styled.div `
     align-items: center;
 
     > label {
+        font-size: 15px;
         margin: 0px 10px;
         min-width: 65px;
     }

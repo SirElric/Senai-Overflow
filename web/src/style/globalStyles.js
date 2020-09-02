@@ -21,6 +21,8 @@ export const GlobalStyles = createGlobalStyle`
     body {
         font-family: Arial;
         background-color: var(--primary);
+
+        overflow-x: hidden;
     }
 
     input {
@@ -35,6 +37,20 @@ export const GlobalStyles = createGlobalStyle`
         transition: background-color 0.2s;
     }
 
+    textarea {
+        color: var(--white);
+        background-color: var(--secundary);
+        font-size: 16px;
+        border: 1px solid var(--white);
+        padding: 10px;
+        font-weight: bold;
+        height: 30px;
+
+        transition: background-color 0.2s;
+
+        resize: none;
+    }
+
     label {
         color: var(--white);
         letter-spacing: 2px;
@@ -43,7 +59,7 @@ export const GlobalStyles = createGlobalStyle`
 
     }
 
-    input, button{
+    input, button, textarea{
         :hover{
             background-color: var(--red);
         }

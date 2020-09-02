@@ -5,11 +5,13 @@ export const Alert = styled.div`
     top: 0;
     right: 0;
 
-    width: 300px;
+    width: 0px;
     height: 60px;
     margin: 10px;
 
     z-index: 9;
+
+    transition: width 0.2s;
 
     background-color: ${(props) =>
         props.tipo === "sucesso" ? "var(--alertSucesso)" : "var(--alertErro)"};
@@ -21,7 +23,7 @@ export const Alert = styled.div`
 
         color: var(--primary);
     }
-    >span {
+    >p {
         position: absolute;
         top: 0;
         right: 0;
